@@ -44,23 +44,66 @@ class _HomeViewState extends ConsumerState<_HomeView> {
     final slideShowMovies = ref.watch( moviesSlideshowProvider );
 
 
-    return Column(
-      children: [
+    return CustomScrollView(
+      slivers: [
 
-        const CustomAppbar(),
-
-        MoviesSlideshow(movies: slideShowMovies ),
-
-        MovieHorizontalListview(
-          movies: nowPlayingMovies, 
-          title: 'In theaters',
-          subTitle: 'Monday 20',
-          loadNextPage: () =>ref.read(nowPlayingMoviesProvider.notifier).loadNextPage()
-
-        )
+        const SliverAppBar(
+          floating: true,
+          flexibleSpace: FlexibleSpaceBar(
+            title: CustomAppbar(),
+            titlePadding: EdgeInsets.zero,
+          ),
+        ),
 
 
-      ],
+        SliverList(delegate: SliverChildBuilderDelegate(
+          (context, index) {
+            return Column(
+                children: [
+
+                  // const CustomAppbar(),
+
+                  MoviesSlideshow(movies: slideShowMovies ),
+
+                  MovieHorizontalListview(
+                    movies: nowPlayingMovies,
+                    title: 'In theaters',
+                    subTitle: 'Monday 20',
+                    loadNextPage: () =>ref.read(nowPlayingMoviesProvider.notifier).loadNextPage(),
+
+                  ),
+
+                  MovieHorizontalListview(
+                    movies: nowPlayingMovies,
+                    title: 'Soon',
+                    subTitle: 'This month',
+                    loadNextPage: () =>ref.read(nowPlayingMoviesProvider.notifier).loadNextPage(),
+                  ),
+
+                  MovieHorizontalListview(
+                    movies: nowPlayingMovies,
+                    title: 'Popular',
+                    // subTitle: '',
+                    loadNextPage: () =>ref.read(nowPlayingMoviesProvider.notifier).loadNextPage(),
+                  ),
+
+                  MovieHorizontalListview(
+                    movies: nowPlayingMovies,
+                    title: 'Best rated',
+                    subTitle: 'Since always',
+                    loadNextPage: () =>ref.read(nowPlayingMoviesProvider.notifier).loadNextPage(), 
+                  ),
+
+                  const SizedBox( height: 10 ),
+
+
+              ],
+            );
+          },
+          childCount: 1
+        )),
+
+      ]
     );
   }
 }

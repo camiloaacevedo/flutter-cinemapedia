@@ -57,22 +57,22 @@ class _MovieHorizontalListviewState extends State<MovieHorizontalListview> {
       height: 350,
       child: Column(
         children: [
-
-        if ( widget.title != null || widget.subTitle != null )
-          _Title(title: widget.title, subTitle: widget.subTitle ),
-
-
-        Expanded(
-          child: ListView.builder(
-            controller: scrollController,
-            itemCount: widget.movies.length,
-            scrollDirection: Axis.horizontal,
-            physics: const BouncingScrollPhysics(),
-            itemBuilder: (context, index) {
-              return _Slide(movie: widget.movies[index]);
-            },
-          ),
-        )
+          
+          if ( widget.title != null || widget.subTitle != null )
+            _Title(title: widget.title, subTitle: widget.subTitle ),
+  
+  
+          Expanded(
+            child: ListView.builder(
+              controller: scrollController,
+              itemCount: widget.movies.length,
+              scrollDirection: Axis.horizontal,
+              physics: const BouncingScrollPhysics(),
+              itemBuilder: (context, index) {
+                return FadeInRight(child: _Slide(movie: widget.movies[index]));
+              },
+            ),
+          )
 
         ],
       ),

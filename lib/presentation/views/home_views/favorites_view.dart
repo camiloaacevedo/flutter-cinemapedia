@@ -10,6 +10,7 @@ class FavoritesView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Favorites View'),
+        centerTitle: true,
       ),
       body: Center(
         child: const Text('Favorites'),

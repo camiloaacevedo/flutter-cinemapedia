@@ -15,7 +15,7 @@ class MoviePosterLink extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => context.push('/home/0/movie/${ movie.id }'),
+      onTap: () => context.push('/movie/${ movie.id }'),
       child: ClipRRect(
         borderRadius: BorderRadiusGeometry.circular(20),
         child: FadeIn(

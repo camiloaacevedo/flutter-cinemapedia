@@ -4,8 +4,7 @@ import 'package:animate_do/animate_do.dart';
 
 import 'package:cinemapedia/domain/entities/movie.dart';
 
-import 'package:cinemapedia/presentation/providers/movies/movie_info_provider.dart';
-import 'package:cinemapedia/presentation/providers/actors/actors_by_movie_provider.dart';
+import 'package:cinemapedia/presentation/providers/providers.dart';
 
 
 class MovieScreen extends ConsumerStatefulWidget {
@@ -37,7 +36,7 @@ class MovieScreenState extends ConsumerState<MovieScreen> {
   @override
   Widget build(BuildContext context) {
 
-    final Movie? movie = ref.watch(movieInfoProvider )[widget.movieId];
+    final Movie? movie = ref.watch( movieInfoProvider )[widget.movieId];
 
     if ( movie == null ) {
       return const Scaffold(body: Center( child: CircularProgressIndicator( strokeWidth: 2)));
@@ -205,7 +204,7 @@ class _ActorsByMovie extends ConsumerWidget {
 
 
 
-class _CustomSliverAppBar extends StatelessWidget {
+class _CustomSliverAppBar extends ConsumerWidget {
 
   final Movie movie;
 
@@ -214,7 +213,7 @@ class _CustomSliverAppBar extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
 
     final size = MediaQuery.of(context).size;
 
@@ -224,7 +223,11 @@ class _CustomSliverAppBar extends StatelessWidget {
       foregroundColor: Colors.white,
       actions: [
         IconButton(onPressed: () {
-            //TODO: realizar el toggle
+            
+            ref.watch(localStorageRepositoryProvider)
+              .toggleFavorite(movie);
+
+
 
           }, 
           icon: Icon( Icons.favorite_border )
